@@ -1,0 +1,62 @@
+Rubin McLuen
+Identifying Co-regulated Yeast Genes Using Graph-theoretic Methods
+
+This folder contains:
+First presentation slides
+Final presentation slides
+Final report
+Source code for the methodology of the project
+Source code for creating the visualizations for the report and presentations
+Orginal data
+
+
+The original data is in the data directory, it includes a txt file with a yeast gene expression matrix and a txt file with the corresponding gene names.
+
+
+The source code for the methodology for the project is in files main.py and similarity_measures.py within the code directory.
+
+main.py can be configured at the bottom of the file, 
+you can change the input files, select a similarity measure, a condition to remove, and max_k (the maximum of therange of clusters to create).
+You can run main.py using python main.py. With the given inputs, it will normalize the data, calculate the distance matrix,
+for the given similarity measure, create all three graph types, and calculate the figure of merit for all cluster numbers.
+The results will be stored in the results directory, under the corresponding similarity measure directory.
+Calculating the distance matrix and creating the gabriel graphs can be extremely slow. I ran the 8 different similarity measures
+independently on virtual machines of a couple days.
+
+main.py calls functions from similarity_measures.py, where you will find the implementation for all of the similarity measures, the formulas
+for these measures were taken from the paper described in the final report.
+
+
+The source code for creating the visualization can be found in the code directory.
+All of these files can be configured at the bottom of the file, and ran using python "file_name.py"
+
+chart_foms.py gives the entire table of figure of merit for all methods (table 2 in final report). Note that I cleaned up the table for the final report manually.
+The only thing you would really want to configure for this file is deciding to print or save the chart to excel, by commenting out either line.
+
+plot_clusters.py lets you create a visualization fo the clustering for a particular similarity measure, graph type, and number of clusters.
+This was used for the visualization in the final presentation.
+
+plot_expression_profiles.py is the file that would likely be most interesting for you to run. It graphs the expression profile of all of the clusters for
+a particular similarity measure, graph type and number of clusters. Simpy change the variables at the bottom of the file, and run it,
+ and it will print out where the files are saved. This was used for figure 3 in the final report.
+
+plot_fom.py plots the figure of merit for different graph types, the same as figure 2 in the final report.
+The only thing to configure in this file is the similarity measure.
+
+plot_test_clusters.py creates a side by side visualization of the neighborhood graph and the clusters that are output
+for all three graph types when using the clustering algorithm. This was used in the final presentation.
+
+plot_test_graphs.py creates a visualization of all of the graph algorithms on 100 random points. This was used as figure 1 in the final report.
+
+Note that you may run into some small issues if you try to create visualizations using mahalanobis distance or squared correlation because I could not
+create the gabriel graphs for those measures in time.
+
+When configuring the files, the possilbe choices are the following:
+
+graph_type: 'c_knng', 'rng', 'gg'
+similarity_measure: 'euclidean', 'manhattan', 'mahalanobis', 'pearson', 'uncentered', 'spearman', 'absolute', 'squared'
+max_k: any integer (high end of range of number of clusters)
+k: any integer between 1 and 20 for the data I have included (number of clusters)
+condition_to_remove: any integer between 0 and 16 for the given dataset
+
+Please contact me if you run into any issues, thank you!
